@@ -74,21 +74,23 @@ runs:
       env:
         version_tag_numeric: "${{ inputs.version_tag_numeric }}"
 
-      - name: install orcid-api-common into our local maven repo because the deploy depends on this orcid-web orcid-iapi orcid-api
-        run: |
-          mvn -T 1C --batch-mode clean install -DskipTests \
-              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-              --projects orcid-api-common
-        env:
-          version_tag_numeric: "${{ inputs.version_tag_numeric }}"
+    - name: install orcid-api-common into our local maven repo because the deploy depends on this orcid-web orcid-iapi orcid-api
+      run: |
+        mvn -T 1C --batch-mode clean install -DskipTests \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            --projects orcid-api-common
+      env:
+        version_tag_numeric: "${{ inputs.version_tag_numeric }}"
 
-      - name: check some build related things
-        run: |
-          git --version
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git status
-          git diff
-          if [[ -d ~/.m2/repository/ ]];then
-            find ~/.m2/repository/ -name '*.jar' | grep orcid
+    - name: check some build related things
+      run: |
+        git --version
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git status
+        git diff
+        if [[ -d ~/.m2/repository/ ]];then
+          find ~/.m2/repository/ -name '*.jar' | grep orcid
+        fi
+
 
