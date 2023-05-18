@@ -101,6 +101,9 @@ runs:
         if [[ -d ~/.m2/repository/ ]];then
           find ~/.m2/repository/ -name '*.jar' | grep orcid
         fi
+        if [[ -d ~/.m2/repository/org/orcid/orcid-test/ ]];then
+          ls -la ~/.m2/repository/org/orcid/orcid-test/
+        fi
       shell: bash
 
 
